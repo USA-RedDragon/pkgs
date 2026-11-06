@@ -7,10 +7,11 @@
         "schedule:earlyMondays"
     ],
     "prHeader": "Update Request | Renovate Bot",
-    "regexManagers": [
+    "customManagers": [
         {
-            "fileMatch": [
-                "Pkgfile"
+            "customType": "regex",
+            "managerFilePatterns": [
+                "/Pkgfile/"
             ],
             "matchStrings": [
                 "# renovate: datasource=(?<datasource>.*?)(?:\\s+extractVersion=(?<extractVersion>.+?))?(?:\\s+versioning=(?<versioning>.+?))?\\s+depName=(?<depName>.+?)?\\s(?:\\s+.*_(?:version|VERSION):\\s+(?<currentValue>.*))?(?:\\s.*_(?:ref|REF):\\s+(?<currentDigest>.*))?"
@@ -18,9 +19,10 @@
             "versioningTemplate": "{{#if versioning}}{{versioning}}{{else}}semver{{/if}}"
         },
         {
-            "fileMatch": [
-                "Pkgfile",
-                "Makefile"
+            "customType": "regex",
+            "managerFilePatterns": [
+                "/Pkgfile/",
+                "/Makefile/"
             ],
             "matchStrings": [
                 "ghcr.io\\/siderolabs\\/bldr:(?<currentValue>v.*)"
@@ -90,7 +92,7 @@
             "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.?(?<patch>[0-9]{1}[0-8]{0,1})?$"
         },
         {
-            "matchPackagePatterns": [
+            "matchPackageNames": [
                 "*"
             ],
             "matchDatasources": [
@@ -99,7 +101,7 @@
             "groupName": "container images"
         },
         {
-            "matchPackagePatterns": [
+            "matchPackageNames": [
                 "*"
             ],
             "matchDatasources": [
@@ -109,7 +111,7 @@
             "groupName": "go packages"
         },
         {
-            "matchPackagePatterns": [
+            "matchPackageNames": [
                 "*"
             ],
             "matchDatasources": [
